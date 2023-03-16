@@ -17,7 +17,7 @@ class Solution:
         right_size = size - (root_idx + 1)
 
         root = TreeNode(root_val)
-        root.left = self.dfs(inorder[:root_idx], postorder[-size:-right_size-1])
+        root.left = self.dfs(inorder[:root_idx], postorder[:-right_size-1])
         root.right = self.dfs(inorder[root_idx + 1:], postorder[-right_size-1:-1])
         
         return root
