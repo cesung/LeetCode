@@ -1,7 +1,7 @@
 from typing import *
 
 class UnionFind:
-    def __init__(self, size: int):
+    def __init__(self, size: int) -> None:
         self.parents = [idx for idx in range(size)]
         self.ranks = [1 for _ in range(size)]
 
