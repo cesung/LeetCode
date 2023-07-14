@@ -1,20 +1,17 @@
 from typing import *
+from collections import defaultdict
 
 
 class Solution:
     def longestSubsequence(self, arr: List[int], difference: int) -> int:
-        size = len(arr)
+        n = len(arr)
+        rcd = defaultdict(int)
 
-        # the lastest index that number arr[idx] shows up
-        rcd = defaultdict(int, {
-            arr[0]: 0
-        })
+        rcd[arr[0]] = 1
+        for idx in range(1, n):
+            if arr[idx] - difference in rcd:
+                rcd[arr[idx]] = rcd[arr[idx] - difference] + 1
+            else:
+                rcd[arr[idx]] = 1
 
-        dp = [1 for _ in range(size)]
-
-        for idx, num in enumerate(arr[1:], 1):
-            if num - difference in rcd:
-                dp[idx] = dp[rcd[num - difference]] + 1
-            rcd[num] = idx
-
-        return max(dp)
+        return max(rcd.values())
