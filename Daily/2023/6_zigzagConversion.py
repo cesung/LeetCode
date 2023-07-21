@@ -1,3 +1,6 @@
+from typing import *
+import math
+
 class Solution:
     def convert(self, s: str, num_rows: int) -> str:
         if num_rows == 1:
