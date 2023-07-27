@@ -34,10 +34,8 @@ class Solution:
 
         for idx in range(1, n):
             # do not take i-th job
-            dp[idx] = max(
-                dp[idx],
-                dp[idx - 1]
-            )
+            dp[idx] = dp[idx - 1]
+            
             # take i-th job
             prev_profit = dp[prev[idx]] if prev[idx] != -1 else 0
             dp[idx] = max(
