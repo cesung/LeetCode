@@ -13,9 +13,7 @@ class Solution:
         
         return cur_comb
             
-    
     def letterCombinations(self, digits: str) -> List[str]:
-        
         if not digits:
             return []
         
