@@ -2,31 +2,32 @@ from typing import *
 from collections import defaultdict
 
 class Solution:
-    def dfs(self, course: int, stk:List[int]) -> None:
-        stk.append(course)
-        for neighbor in self.graph[course]:
-            if neighbor in stk:
-                self.has_cycle = True
-                return
+    def dfs(self, node: int, stk: List[int]) -> bool:
+        if node in stk:
+            return False
+        stk.append(node)
+        
+        for neighbor in self.graph[node]:
             if neighbor in self.vis:
                 continue
-            self.vis.add(neighbor)
-            self.dfs(neighbor, stk)
-            stk.pop()
-
+            if not self.dfs(neighbor, stk):
+                return False
+        
+        stk.pop()
+        self.vis.add(node)
+        
+        return True
+    
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         self.graph = defaultdict(list)
-        for prev, post in prerequisites:
-            self.graph[prev].append(post)
-
+        for cur, prev in prerequisites:
+            self.graph[prev].append(cur)
+        
         self.vis = set()
-        self.has_cycle = False
-
-        for course in range(numCourses):
-            if course in self.vis:
+        for node in range(numCourses):
+            if node in self.vis:
                 continue
+            if not self.dfs(node, []):
+                return False
         
-            self.vis.add(course)
-            self.dfs(course, [])
-        
-        return not self.has_cycle
+        return True
